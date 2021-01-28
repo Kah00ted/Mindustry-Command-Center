@@ -1,0 +1,1 @@
+display dialog "Mindustry Control Center" buttons {"Start Server Terminal", "Exit"}
