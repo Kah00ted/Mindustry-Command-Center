@@ -13,7 +13,7 @@ if result = {button returned:"Start Server Terminal"} then
             do script ("java -jar "& mindustryServerPath &"server.jar") in window 1
     end tell
 
-    display dialog "Server Terminal Started" buttons {"Host New Game", "Exit"}
+    display dialog "Server Terminal Started" buttons {"Host Game", "Exit"}
     if result = {button returned:"Host Game"} then
         tell application "Terminal"
             #activate
