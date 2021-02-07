@@ -13,11 +13,17 @@ if result = {button returned:"Start Server Terminal"} then
             do script ("java -jar "& mindustryServerPath &"server.jar") in window 1
     end tell
 
-    display dialog "Server Terminal Started" buttons {"Host Game", "Exit"}
-    if result = {button returned:"Host Game"} then
+    display dialog "Server Terminal Started" buttons {"Host New Game", "Load From Save", "Exit"}
+    if result = {button returned:"Host New Game"} then
         tell application "Terminal"
             #activate
             do script ("host") in window 1
+        end tell
+    else if result = {button returned:"Load From Save"} then
+        display dialog "Save Number:" default answer ""
+        tell application "Terminal"
+            #activate
+            do script ("load " & (text returned of result)) in window 1
         end tell
     end if
 
