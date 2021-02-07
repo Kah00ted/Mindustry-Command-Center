@@ -10,6 +10,7 @@ if result = {button returned:"Start Server Terminal"} then
     tell application "Terminal"
             reopen
             activate
+            do script ("cd "& mindustryServerPath) in window 1
             do script ("java -jar "& mindustryServerPath &"server.jar") in window 1
     end tell
 
