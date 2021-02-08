@@ -22,6 +22,10 @@ on startTerminal()
         do script ("java -jar "& mindustryServerPath &"server.jar") in window 1
     end tell
 
+    landing()
+end startTerminal
+
+on landing()
     display dialog "Server Terminal Started" buttons {"Host New Game", "Load From Save", "Exit"}
     if result = {button returned:"Host New Game"} then
         hostNew()
@@ -32,7 +36,7 @@ on startTerminal()
             do script ("load " & saveNum) in window 1
         end tell
     end if
-end startTerminal
+end landing
 
 on hostNew()
     set selectMap to text returned of (display dialog "Map" default answer "")
