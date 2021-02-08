@@ -4,28 +4,44 @@ set myIP to IPv4 address of (get system info)
 
 set mindustryServerPath to "/Volumes/SMALL_BIG/code/Mindustry-CC/mindustry-server/"
 
+on onStartup()
+    display dialog "Mindustry Control Center" buttons {"Start Server Terminal", "Exit"}
+    if result = {button returned:"Start Server Terminal"} then
+        startTerminal()
+    end if
 
-display dialog "Mindustry Control Center" buttons {"Start Server Terminal", "Exit"}
-if result = {button returned:"Start Server Terminal"} then
+end onStartup
+
+on startTerminal()
+    global mindustryServerPath
+
     tell application "Terminal"
-            reopen
-            activate
-            do script ("cd "& mindustryServerPath) in window 1
-            do script ("java -jar "& mindustryServerPath &"server.jar") in window 1
+        reopen
+        activate
+        do script ("cd "& mindustryServerPath) in window 1
+        do script ("java -jar "& mindustryServerPath &"server.jar") in window 1
     end tell
 
     display dialog "Server Terminal Started" buttons {"Host New Game", "Load From Save", "Exit"}
     if result = {button returned:"Host New Game"} then
-        tell application "Terminal"
-            #activate
-            do script ("host") in window 1
-        end tell
+        hostNew()
     else if result = {button returned:"Load From Save"} then
-        display dialog "Save Number:" default answer ""
+        set saveNum to text returned of (display dialog "Save Number:" default answer "")
         tell application "Terminal"
-            #activate
-            do script ("load " & (text returned of result)) in window 1
+            activate
+            do script ("load " & saveNum) in window 1
         end tell
     end if
+end startTerminal
 
-end if
+on hostNew()
+    set selectMap to text returned of (display dialog "Map" default answer "")
+    set selectGamemode to text returned of (display dialog "Gamemode" default answer "")
+
+    tell application "Terminal"
+        activate
+        do script ("host "&selectMap&" "&selectGamemode) in window 1
+    end tell
+end hostNew
+
+onStartup()
